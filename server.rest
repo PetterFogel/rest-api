@@ -1,0 +1,35 @@
+GET http://localhost:3000/
+
+###
+
+GET http://localhost:3000/heroes
+
+###
+
+POST http://localhost:3000/heroes
+Content-Type: application/json
+
+{
+    "name": "Axe",
+    "attribute": "Strength",
+    "role": "Tank"
+}
+
+### 
+
+GET http://localhost:3000/heroes/3
+
+###
+
+DELETE http://localhost:3000/heroes/2
+
+###
+
+PUT http://localhost:3000/heroes/2
+Content-Type: application/json
+
+{
+    "name": "Lion",
+    "attribute": "Intelligence",
+    "role": "Support"
+}
