@@ -2,26 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 // HERO LIST
-let heroList = [
-    {
-        name: "Pudge",
-        attribute: "Strength",
-        role: "Tank",
-        id: 1
-    },
-    {
-        name: "Juggernaut",
-        attribute: "Agility",
-        role: "Carry",
-        id: 2
-    },
-    {
-        name: "Lina",
-        attribute: "Intelligence",
-        role: "Nuker",
-        id: 3
-    }
-]
+let heroList = require("./heroList.json");
 
 app.use(express.json());
 
@@ -89,7 +70,9 @@ app.put("/heroes/:id", (req, res) => {
         specificHero.attribute = req.body.attribute
         specificHero.role = req.body.role
 
-        res.json("Hero was updated!");
+        res.json({
+            status: "Hero was updated!"
+        })
     } 
 });
 
