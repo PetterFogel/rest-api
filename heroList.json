@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Pudge",
+        "attribute": "Strength",
+        "role": "Tank",
+        "id": 1
+    },
+    {
+        "name": "Juggernaut",
+        "attribute": "Agility",
+        "role": "Carry",
+        "id": 2
+    },
+    {
+        "name": "Lina",
+        "attribute": "Intelligence",
+        "role": "Nuker",
+        "id": 3
+    }
+]
