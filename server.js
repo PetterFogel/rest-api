@@ -1,14 +1,14 @@
 const express = require('express');
 const app = express();
 const PORT = 3000;
+
+const fs = require("fs");
+const data = fs.readFileSync("heroList.json");
 // HERO LIST
-let heroList = require("./heroList.json");
+let heroList = JSON.parse(data);
 
 app.use(express.json());
-
-app.get("/", (req, res) => {
-    res.send("<h1>Homepage</h1>");
-})
+app.use(express.static("public"));
 
 app.get("/heroes", (req, res) => {
     res.json(heroList);
@@ -40,9 +40,14 @@ app.post("/heroes", (req, res) => {
         id: newId
     });
 
-    res.json({
-        status: `${req.body.name} was added to the list!`
-    })
+    const data = JSON.stringify(heroList, null, 2);
+    fs.writeFile("heroList.json", data, (err) => {
+        if (err) throw err;
+
+        res.json({
+            status: `${req.body.name} was added to the list!`
+        });
+    });
 });
 // FETCH SPECIFIC HERO BY ID
 app.get("/heroes/:id", (req, res) => {
@@ -54,11 +59,17 @@ app.get("/heroes/:id", (req, res) => {
 // DELETE SPECIFIC HERO
 app.delete("/heroes/:id", (req, res) => {
     const id = parseInt(req.params.id);
+
+    const specificHero = heroList.find((hero) => hero.id === id);
     heroList = heroList.filter((hero) => hero.id !== id);
 
-    res.json({
-        status: "Hero was deleted from list!"
-    })
+    const data = JSON.stringify(heroList, null, 2);
+    fs.writeFile("heroList.json", data, (err) => {
+        if (err) throw err
+        res.json({
+            status: `${specificHero.name} was deleted from list!`
+        })
+    });
 });
 // UPDATE SPECIFIC HERO
 app.put("/heroes/:id", (req, res) => {
@@ -70,10 +81,18 @@ app.put("/heroes/:id", (req, res) => {
         specificHero.attribute = req.body.attribute
         specificHero.role = req.body.role
 
+        const data = JSON.stringify(heroList, null, 2);
+        fs.writeFile("heroList.json", data, (err) => {
+            if (err) throw err;
+            res.json({
+                status: "Hero was updated!"
+            })
+        });
+    } else {
         res.json({
-            status: "Hero was updated!"
+            status: "Hero doenst exist in list!"
         })
-    } 
+    }
 });
 
 app.listen(PORT, () => {
