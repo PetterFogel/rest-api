@@ -10,12 +10,12 @@ let heroList = JSON.parse(data);
 app.use(express.json());
 app.use(express.static("public"));
 
-app.get("/heroes", (req, res) => {
+app.get("/api/heroes", (req, res) => {
     res.json(heroList);
 })
 
 // ADD NEW HERO TO LIST
-app.post("/heroes", (req, res) => {
+app.post("/api/heroes", (req, res) => {
 
     let newId = 0;
     heroList.forEach((hero) => {
@@ -50,15 +50,15 @@ app.post("/heroes", (req, res) => {
     });
 });
 // FETCH SPECIFIC HERO BY ID
-app.get("/heroes/:id", (req, res) => {
+app.get("/api/heroes/:id", (req, res) => {
     const id = parseInt(req.params.id);
 
     const specificHero = heroList.find((hero) => hero.id === id);
     res.json(specificHero);
 });
 // DELETE SPECIFIC HERO
-app.delete("/heroes/:id", (req, res) => {
-    const id = parseInt(req.params.id);
+app.delete("/api/heroes/:id", (req, res) => {
+    const id = parseInt(req.params.id); 
 
     const specificHero = heroList.find((hero) => hero.id === id);
     heroList = heroList.filter((hero) => hero.id !== id);
@@ -72,7 +72,7 @@ app.delete("/heroes/:id", (req, res) => {
     });
 });
 // UPDATE SPECIFIC HERO
-app.put("/heroes/:id", (req, res) => {
+app.put("/api/heroes/:id", (req, res) => {
     const id = parseInt(req.params.id);
     let specificHero = heroList.find((hero) => hero.id === id);
 
