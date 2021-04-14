@@ -3,20 +3,17 @@ window.addEventListener("load", main);
 const displayHeroesContainer = document.querySelector(".heroes-container");
 displayHeroesContainer.style.display = "none";
 
-const addHeroContainer = document.querySelector(".add-hero-container")
+const addHeroContainer = document.querySelector(".add-hero-container");
 addHeroContainer.style.display = "none";
+
+const updateHeroContainer = document.querySelector(".update-hero-container");
+updateHeroContainer.style.display = "none";
 
 const body = document.querySelector("body");
 body.appendChild(displayHeroesContainer);
 
 function main() {
     addEventListeners();
-
-    // fetchAllHeroes();
-    // fetchSpecificHero(2);
-    // addNewHero("Axe", "Strength", "Tank");
-    // deleteSpecificHero(4);
-    // updateSpecificHero("Lion", "Intelligence", "Support", 2);
 }
 
 function addEventListeners() {
@@ -37,6 +34,7 @@ function addEventListeners() {
 async function fetchAllHeroes() {
     const heroes = await makeRequest("/api/heroes", "GET");
     displayHeroesContainer.innerHTML = "";
+    updateHeroContainer.style.display = "none"
 
     for (const hero of heroes ) {
         // HERO HOLDER DIV
@@ -56,6 +54,15 @@ async function fetchAllHeroes() {
         roles.innerText = hero.role;
         heroContainer.appendChild(roles);
 
+        // Click on updateBtn to call updateSpecificHero function
+        const updateBtn = document.createElement("button");
+        updateBtn.innerText = "Update";
+        updateBtn.classList.add("btn");
+        heroContainer.appendChild(updateBtn)
+        updateBtn.addEventListener("click", () => {
+            fetchInputValuesFromUpdateForm(hero);
+        });
+
         // Click on trashBtn to call deleteSpecificHero function
         const trashBtn = document.createElement("button");
         trashBtn.innerText = "Delete";
@@ -67,7 +74,6 @@ async function fetchAllHeroes() {
 
         // Click on div to call fetchSpecificHero
         heroContainer.addEventListener("click", () => {
-            displayHeroesContainer.innerHTML = "";
             fetchSpecificHero(hero);
         });
     }
@@ -77,6 +83,8 @@ async function fetchAllHeroes() {
 async function fetchSpecificHero(specificHero) {
     const id = specificHero.id;
     const hero = await makeRequest("/api/heroes/" + id, "GET");
+
+    displayHeroesContainer.innerHTML = "";
 
     const heroContainer = document.createElement("div");
     heroContainer.classList.add("hero-container")   
@@ -94,16 +102,24 @@ async function fetchSpecificHero(specificHero) {
     roles.innerText = hero.role;
     heroContainer.appendChild(roles);
 
+    
+    // Click on updateBtn to call updateSpecificHero function
+    const updateBtn = document.createElement("button");
+    updateBtn.innerText = "Update";
+    updateBtn.classList.add("btn");
+    heroContainer.appendChild(updateBtn)
+    updateBtn.addEventListener("click", () => {
+        fetchInputValuesFromUpdateForm(hero);
+    });
+
     // Click on trashBtn to call deleteSpecificHero function
     const trashBtn = document.createElement("button");
     trashBtn.innerText = "Delete";
     trashBtn.classList.add("btn");
     heroContainer.appendChild(trashBtn);
-    trashBtn.addEventListener("click", () => {
+    trashBtn.addEventListener("click", (event) => {
         deleteSpecificHero(hero.id);
     });
-
-    console.log(hero);
 }
 
 const submitBtn = document.getElementById("submitBtn");
@@ -114,6 +130,9 @@ submitBtn.addEventListener("click", (event) => {
     const attribute = inputValues[1].value;
     const role = inputValues[2].value;
     addNewHero(name, attribute, role);
+    inputValues[0].value = "";
+    inputValues[1].value = "";
+    inputValues[2].value = "";
 })
 
 async function addNewHero(name, attribute, role) {
@@ -122,11 +141,7 @@ async function addNewHero(name, attribute, role) {
         attribute: attribute,
         role: role
     }
-
-    console.log(newHero)
-
     const addHero = await makeRequest("/api/heroes/", "POST", newHero);
-    console.log(addHero)
 }
 
 async function deleteSpecificHero(id) {
@@ -134,7 +149,32 @@ async function deleteSpecificHero(id) {
     console.log(deletedHero);
 }
 
+function fetchInputValuesFromUpdateForm(specificHero) {
+    displayHeroesContainer.style.display = "none";
+    updateHeroContainer.style.display = "block";
+
+    const inputValues = document.querySelectorAll(".update-form input");
+    inputValues[0].value = specificHero.name
+    inputValues[1].value = specificHero.attribute
+    inputValues[2].value = specificHero.role
+
+    const updateHeorBtn = document.getElementById("updateBtn");
+    updateHeorBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        const updatedName = inputValues[0].value;
+        const updatedAttribute = inputValues[1].value;
+        const updatedRole = inputValues[2].value;
+        const id = specificHero.id;
+        updateSpecificHero(updatedName, updatedAttribute, updatedRole, id)
+        updateHeroContainer.style.display = "none";
+    });
+
+}
+
 async function updateSpecificHero(name, attribute, role, id) {
+
+    console.log(name, attribute, role, id)
+
     const updatedHero = {
         name: name,
         attribute: attribute,
