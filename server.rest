@@ -2,11 +2,15 @@ GET http://localhost:3000/
 
 ###
 
-GET http://localhost:3000/heroes
+GET http://localhost:3000/api/heroes
+
+### 
+
+GET http://localhost:3000/api/heroes/3
 
 ###
 
-POST http://localhost:3000/heroes
+POST http://localhost:3000/api/heroes
 Content-Type: application/json
 
 {
@@ -15,21 +19,17 @@ Content-Type: application/json
     "role": "Tank"
 }
 
-### 
+###
 
-GET http://localhost:3000/heroes/3
+DELETE http://localhost:3000/api/heroes/4
 
 ###
 
-DELETE http://localhost:3000/heroes/2
-
-###
-
-PUT http://localhost:3000/heroes/2
+PUT http://localhost:3000/api/heroes/2
 Content-Type: application/json
 
 {
-    "name": "Lion",
-    "attribute": "Intelligence",
-    "role": "Support"
+    "name": "Juggernaut",
+    "attribute": "Agility",
+    "role": "Carry"
 }
