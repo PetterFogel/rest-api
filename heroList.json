@@ -2,7 +2,7 @@
   {
     "name": "Lina",
     "attribute": "Intelligence",
-    "role": "Nuker",
+    "role": "Support",
     "id": 3
   },
   {
@@ -12,7 +12,7 @@
     "id": 4
   },
   {
-    "name": "Axe",
+    "name": "Kunkka",
     "attribute": "Strength",
     "role": "Tank",
     "id": 5
@@ -22,5 +22,17 @@
     "attribute": "Intelligence",
     "role": "Support",
     "id": 6
+  },
+  {
+    "name": "Axe",
+    "attribute": "Strength",
+    "role": "Tank",
+    "id": 7
+  },
+  {
+    "name": "Mirana",
+    "attribute": "Agility",
+    "role": "Carry",
+    "id": 8
   }
 ]
