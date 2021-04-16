@@ -2,9 +2,9 @@
 
 Krav uppfyllda, G och VG
 
-Detta projekt innehåller ett API som listar Dota 2 hjältar som användaren kan modifiera med CRUD.
+This project contains an API that renders a list of Dota 2 heroes. The user can modify the API with CRUD functions.
 
-## Starta projektet
+## Start projektet
 
 First, type `npm i express nodemon` in the terminal to fetch necessary node_modules packages.
 
