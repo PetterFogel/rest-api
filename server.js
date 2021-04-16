@@ -44,7 +44,7 @@ app.post("/api/heroes", (req, res) => {
     fs.writeFile("heroList.json", data, (err) => {
         if (err) throw err;
 
-        res.json({
+        res.status(201).json({
             status: `${req.body.name} was added to the list!`
         });
     });
@@ -66,7 +66,7 @@ app.delete("/api/heroes/:id", (req, res) => {
     const data = JSON.stringify(heroList, null, 2);
     fs.writeFile("heroList.json", data, (err) => {
         if (err) throw err
-        res.json({
+        res.status(202).json({
             status: `${specificHero.name} was deleted from list!`
         })
     });
@@ -84,12 +84,12 @@ app.put("/api/heroes/:id", (req, res) => {
         const data = JSON.stringify(heroList, null, 2);
         fs.writeFile("heroList.json", data, (err) => {
             if (err) throw err;
-            res.json({
+            res.status(200).json({
                 status: "Hero was updated!"
             })
         });
     } else {
-        res.json({
+        res.status(400).json({
             status: "Hero doenst exist in list!"
         })
     }
