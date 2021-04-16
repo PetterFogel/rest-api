@@ -17,8 +17,9 @@
         </nav>
     </header>
     <main>
+        <div class="bg-container"></div>
         <!-- Displays all heroes from json data -->
-        <div class="heroes-container"></div>
+        <div class="heroes-list-container"></div>
         <!-- Adds hero to json data -->
         <div class="add-hero-container">
             <form action="" class="add-form">
@@ -33,9 +34,9 @@
         <div class="update-hero-container">
             <form action="" class="update-form">
                 <h2>Update Hero</h2>
-                <input type="text" placeholder="Name">
-                <input type="text" placeholder="Attribute">
-                <input type="text" placeholder="Role">
+                <input type="text" placeholder="Name" id="name-input">
+                <input type="text" placeholder="Attribute" id="attribute-input">
+                <input type="text" placeholder="Role" id="role-input">
                 <button class="btn" id="updateBtn">UPDATE HERO</button>
             </form>
         </div>
