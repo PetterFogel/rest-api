@@ -1,7 +1,3 @@
-GET http://localhost:3000/
-
-###
-
 GET http://localhost:3000/api/heroes
 
 ### 
@@ -21,15 +17,15 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/api/heroes/4
+DELETE http://localhost:3000/api/heroes/7
 
 ###
 
-PUT http://localhost:3000/api/heroes/2
+PUT http://localhost:3000/api/heroes/3
 Content-Type: application/json
 
 {
-    "name": "Juggernaut",
-    "attribute": "Agility",
-    "role": "Carry"
+    "name": "Pudge",
+    "attribute": "Strength",
+    "role": "Tank"
 }
